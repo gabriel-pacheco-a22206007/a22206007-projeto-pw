@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Artigo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+        }
+        .form-container {
+            max-width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 20px auto;
+        }
+        .form-container h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .extra-links {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+        .extra-links a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .extra-links a:hover {
+            color: #0056b3;
+        }
+        .back-link {
+            margin: 40px 0;
+            text-align: center;
+        }
+        .back-link a {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 25px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .back-link a:hover {
+            background-color: #0056b3;
+        }
+        .edit-profile-form {
+            text-align: center;
+        }
+        .edit-profile-form label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Editar Artigo</h1>
+    </header>
+
+    <div class="form-container">
+        <form method="POST" class="edit-profile-form">
+            {% csrf_token %}
+            <input type="text" id="titulo" name="titulo" placeholder="Título" value="{{ artigo.titulo }}" required>
+            <textarea type="text" id="conteudo" name="conteudo" placeholder="Conteúdo" value="" required>{{ artigo.conteudo }}</textarea>
+            <select id="autor" name="autor" required>
+                <option value="">{{ artigo.autor_id.nome }}</option>
+                {% for autor in autores %}
+                    <option value="{{ autor.autor_id }}">{{ autor.nome }}</option>
+                {% endfor %}
+            </select>
+            <div class="extra-links">
+                <a href="{% url 'Artigos:lista_autor' %}" class="signup-link">Editar lista autores</a>
+            </div>
+            <button type="submit">Salvar Alterações</button>
+        </form>
+    </div>
+    <div class="back-link">
+        <a href="{% url 'Artigos:lista' %}">Voltar à página inicial</a>
+    </div>
+
+</body>
+</html>

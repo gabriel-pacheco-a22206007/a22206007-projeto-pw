@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Docentes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .login-button, .create-button, .curso-buttons {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: #fff;
+            border-radius: 25px;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .login-button:hover, .create-button:hover, .curso-buttons:hover {
+            background: linear-gradient(135deg, #0056b3, #003f7f);
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .curso {
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .curso h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .curso p {
+            margin-bottom: 10px;
+            color: #666;
+        }
+        .curso-a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .curso-a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Lista de Docentes</h1>
+
+        {% if request.user.is_authenticated %}
+        <div class="header-buttons">
+            <a href="{% url 'cursoLEI:lista' %}" class="create-button">Voltar à página inicial</a>
+            <a href="{% url 'cursoLEI:criar_docente' %}" class="create-button">Criar Docente</a>
+            </div>
+        {% endif %}
+    </div>
+    <div class="container">
+        {% for docente in docentes %}
+        <div class="curso">
+            <h2><a class="curso-a"><a href="{% url 'cursoLEI:docente' docente.id %}" class="curso-a">{{ docente.nome }}</a></a></h2>
+            <p><strong>Disciplinas:</strong>
+                {% for disciplina in docente.disciplina.all %}
+                    {{ disciplina.nome }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            {% if request.user.is_authenticated %}
+            <div class="header-buttons">
+                <a href="{% url 'cursoLEI:remover_docente' docente.id %}" class="create-button">Remover</a>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

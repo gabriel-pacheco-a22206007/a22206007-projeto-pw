@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praia - {{ praia.nome }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .praia {
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f5f5f5;
+        }
+
+        .praia h2 {
+            margin-top: 0;
+            color: #555;
+        }
+
+        .praia ul {
+            margin-top: 10px;
+            padding-left: 20px;
+            color: #666;
+        }
+
+        .praia ul li {
+            margin-bottom: 5px;
+        }
+
+        .praia img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            border-top: 2px solid #555;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Praias</h1>
+        <div class="praia">
+            <h2>{{ praia.nome }}, {{praia.regiao.nome}}</h2>
+            <ul>
+                {% for servico in praia.servicos.all %}
+                <li> {{ servico.nome }} </li>
+                {% endfor %}
+            </ul>
+            {% if praia.foto %}
+            <img src="{{ praia.foto.url }}" alt="Foto da praia">
+            {% else %}
+            <p>Foto não disponível</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <footer>
+        <a class="back-link" href="{% url 'praias:praias' %}"><i class="fas fa-home"></i> Voltar para a Página
+            Inicial</a>
+        <p>2024</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Previsão de Hoje - Lisboa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .weather-card h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .weather-card p {
+            font-size: 16px;
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .weather-icon {
+            width: 100px;
+            height: 100px;
+            margin: 20px 0;
+        }
+
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #28a745;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #218838;
+        }
+
+        .button-secondary {
+            background-color: #17a2b8;
+        }
+
+        .button-secondary:hover {
+            background-color: #138496;
+        }
+
+        .footer-button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="weather-card">
+            <h1>Previsão Meteorológica para Hoje em {{ city_name }}</h1>
+            <p><strong>Data:</strong> {{ date }}</p>
+            <p><strong>Temperatura Mínima:</strong> {{ temp_min }}°C</p>
+            <p><strong>Temperatura Máxima:</strong> {{ temp_max }}°C</p>
+            <p><strong>Descrição do Tempo:</strong> {{ weather_description }}</p>
+            <img src="{{ icon }}" alt="Icone do tempo" class="weather-icon">
+            <a href="{% url 'meteo:five_days_weather' %}" class="button">Previsão para 5 Dias</a>
+        </div>
+        <div class="footer-button">
+            <a href="{% url 'meteo:cities_list' %}" class="button button-secondary">Ver Todas as Cidades</a>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const weatherDescription = "{{ weather_description }}".toLowerCase();
+            const container = document.querySelector('.container');
+            
+            if (weatherDescription.includes('ensolarado') || weatherDescription.includes('sol')) {
+                container.style.backgroundColor = '#FFEB3B';
+            } else if (weatherDescription.includes('chuva') || weatherDescription.includes('chuvoso')) {
+                container.style.backgroundColor = '#9E9E9E';
+            } else if (weatherDescription.includes('nublado')) {
+                container.style.backgroundColor = '#BDBDBD';
+            } else {
+                container.style.backgroundColor = '#FFF';
+            }
+        });
+    </script>
+</body>
+</html>

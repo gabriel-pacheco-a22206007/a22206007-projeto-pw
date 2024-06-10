@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabriel Pacheco - a22206007</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding-top: 70px;
+            background-color: #f9f9f9;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            color: #444444;
+        }
+        header {
+            background: #444444;
+            color: #ffffff;
+            padding: 1rem 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a, nav ul li button {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        nav ul li a.active {
+            color: #e91e63;
+        }
+        nav ul li button:hover {
+            color: #e91e63;
+        }
+        section {
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+        }
+        .intro {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .intro h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        .intro span {
+            color: #d32f2f;
+        }
+        button {
+            background: #d32f2f;
+            border: none;
+            padding: 10px 20px;
+            color: #ffffff;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #c62828;
+            transform: scale(1.05);
+        }
+        footer {
+            background: #444444;
+            color: #ffffff;
+            text-align: center;
+            padding: 1rem 0;
+        }
+        .resume-section {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .resume-section div {
+            background: #ffffff;
+            margin: 1rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            width: 45%;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .resume-section h3 {
+            color: #d32f2f;
+            border-bottom: 2px solid #d32f2f;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .skills, .languages {
+            width: 45%;
+        }
+        .skills ul, .languages ul {
+            list-style: none;
+            padding: 0;
+        }
+        .skills ul li, .languages ul li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .skills ul li span, .languages ul li span {
+            background: #ddd;
+            border-radius: 10px;
+            padding: 5px 10px;
+            width: calc(100% - 70px);
+            position: relative;
+            overflow: hidden;
+        }
+        .skills ul li span::after, .languages ul li span::after {
+            content: '';
+            background: #d32f2f;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        .dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+        .gallery {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .gallery a {
+            margin: 10px;
+            display: block;
+            overflow: hidden;
+            width: 300px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .gallery img {
+            width: 300px;
+            height: 300px;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+        }
+        .gallery a:hover {
+            transform: scale(1.05);
+        }
+        .dark-mode .resume-section .experience p,
+        .dark-mode .resume-section .skills ul li {
+            color: #444444;
+        }
+        .dark-mode-toggle {
+            background: none;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .dark-mode-toggle:hover {
+            background: transparent;
+            box-shadow: none;
+            outline: none;
+            border: none;
+        }
+        
+        .dark-mode-toggle:active {
+            background: transparent;
+            box-shadow: none;
+            outline: none;
+            border: none;
+        }
+
+        .login-button {
+            background: #d32f2f;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .login-button:hover {
+            background: #e91e63;
+            transform: scale(1.05);
+        }
+        .about-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-bottom: 2rem;
+        }
+        .about-section img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+        .about-section img:hover {
+            transform: scale(1.05);
+        }
+        .about-section p {
+            max-width: 800px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">Sobre</a></li>
+                <li><a href="#project" class="nav-link">Resumo Projeto</a></li>
+                <li><a href="#video" class="nav-link">Vídeos</a></li>
+                <li><a href="#sites" class="nav-link">Aplicações</a></li>
+                <li><a href="#tpc" class="nav-link">TPCs</a></li>
+                <li><button id="dark-mode-toggle" class="dark-mode-toggle"><i class="fas fa-moon"></i></button></li>
+                <li id="current-date-time">00/00/0000 00:00:00</li>
+                {%if request.user.is_authenticated %}
+                <li><a href="{% url 'portfolio:perfil' %}" class="nav-link login-button">Perfil</a></li>
+                {% else %}
+                <li><a href="{% url 'portfolio:login' %}" class="nav-link login-button">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="home">
+        <div class="intro">
+            <h1>Olá, eu sou o <span>Gabriel Pacheco</span></h1>
+            <p>Estudante | Engenharia Informática</p>
+        </div>
+    </section>
+    
+    <section id="about">
+        <h2>Sobre</h2>
+        <div class="about-section">
+            <img src="{% static 'imagens/perfil.jpeg' %}" alt="Gabriel Pacheco">
+            <p>Olá, sou Gabriel Pacheco, estou no segundo ano de LEI na universidade Lusfona´.</p>
+            <p>Este Portfólio foi criado no âmbito da disciplina de Programaçã Web.</p>
+            <p>Nesta página podem encontar todas as aplicações que realizei para esta disciplina, e tudo o que aprendi a fazer na mesma. Como utilizei o Django e como modelei as minhas aplicações.</p>
+        </div>
+    </section>
+    
+    <section id="project">
+        <h2>Resumo Projeto</h2>
+        <div class="resume-section">
+            <div class="experience">
+                <h3>Experiência</h3>
+                <p>ficha 11 - projeto<br>API e Projeto final</p>
+                <p>ficha 8 - ficha 10<br>Formulários e Autenticação nas Aplicações Django, Estilização e propriedades CSS</p>
+                <p>ficha 6 - ficha 8<br>Construção de Aplicações Web com Django.</p>
+                <p>ficha 4 - ficha 6<br>Introdução ao Django e aprendizagem com a modelação</p>
+            </div>
+            <div class="skills">
+                <h3>Tecnologias</h3>
+                <ul>
+                    <li>Django <span style="width: 80%;"></span></li>
+                    <li>HTML <span style="width: 70%;"></span></li>
+                    <li>JavaScript <span style="width: 10%;"></span></li>
+                    <li>Python <span style="width: 70%;"></span></li>
+                    <li>Styles CSS <span style="width: 15%;"></span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <section id="video">
+        <h2>Vídeos</h2>
+        <div class="gallery">
+            <a href="https://www.youtube.com/watch?v=o0QQnNcgqyI" target="_blank">
+                <img src="https://img.youtube.com/vi/o0QQnNcgqyI/0.jpg" alt="Video 1">
+            </a>
+            <a href="https://www.youtube.com/watch?v=o0QQnNcgqyI" target="_blank">
+                <img src="https://img.youtube.com/vi/o0QQnNcgqyI/0.jpg" alt="Video 2">
+            </a>
+        </div>
+    </section>
+    
+    <section id="sites">
+        <h2>Aplicações Criadas na Disciplina de PW</h2>
+        <div class="gallery">
+            <a href="https://gpacheco.pythonanywhere.com/bandas/layout/" target="_blank">
+                <img src="{% static 'imagens/img_play.png' %}" alt="Aplicação 1">
+            </a>
+            <a href="https://gpacheco.pythonanywhere.com/Artigos/lista/" target="_blank">
+                <img src="{% static 'imagens/artigos.png' %}" alt="Aplicação 2">
+            </a>
+            <a href="https://gpacheco.pythonanywhere.com/cursoLEI/lista/" target="_blank">
+                <img src="{% static 'imagens/cursos.png' %}" alt="Aplicação 3">
+            </a>
+            <a href="https://gpacheco.pythonanywhere.com/meteo/" target="_blank">
+                <img src="{% static 'imagens/meteo.png' %}" alt="Aplicação 4">
+            </a>
+        </div>
+    </section>
+    
+    <section id="tpc">
+        <h2>TPCs</h2>
+        <div class="gallery">
+            <a href="https://example.com/tpc1" target="_blank">
+                <img src="https://via.placeholder.com/600x850?text=TPC+1" alt="TPC 1">
+            </a>
+            <a href="https://example.com/tpc2" target="_blank">
+                <img src="https://via.placeholder.com/600x850?text=TPC+2" alt="TPC 2">
+            </a>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2024 Gabriel Pacheco - a22206007</p>
+    </footer>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const date = now.toLocaleDateString();
+            const time = now.toLocaleTimeString();
+            const dateTimeString = `${date} ${time}`;
+            document.getElementById('current-date-time').textContent = dateTimeString;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            updateTime();
+            setInterval(updateTime, 1000);
+        });
+
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        function changeActiveLink() {
+            let index = sections.length;
+
+            while (--index && window.scrollY + 50 < sections[index].offsetTop) {}
+
+            navLinks.forEach((link) => link.classList.remove("active"));
+            navLinks[index].classList.add("active");
+        }
+
+        changeActiveLink();
+        window.addEventListener("scroll", changeActiveLink);
+
+        const darkModeToggle = document.getElementById("dark-mode-toggle");
+        const darkModeIcon = darkModeToggle.querySelector("i");
+
+        darkModeToggle.addEventListener("click", function() {
+            document.body.classList.toggle("dark-mode");
+            if (document.body.classList.contains("dark-mode")) {
+                darkModeIcon.classList.remove("fa-moon");
+                darkModeIcon.classList.add("fa-sun");
+            } else {
+                darkModeIcon.classList.remove("fa-sun");
+                darkModeIcon.classList.add("fa-moon");
+            }
+        });
+    </script>
+</body>
+</html>

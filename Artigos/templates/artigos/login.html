@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+        }
+        .login-container {
+            max-width: 360px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 20px auto;
+        }
+        .login-container h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        input[type="text"],
+        input[type="password"]{
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .extra-links {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+        .extra-links a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        .extra-links a:hover {
+            color: #0056b3;
+        }
+        .back-link {
+            margin: 40px 0;
+            text-align: center;
+        }
+        .back-link a {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 25px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .back-link a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Login</h1>
+    </header>
+
+    <div class="login-container">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" id="username" name="username" placeholder="Usuário" required>
+            <input type="password" id="password" name="password" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <div class="extra-links">
+            <a href="#" class="recover-link">Esqueceu sua senha?</a>
+            <span>|</span>
+            <a href="{% url 'Artigos:registo' %}" class="signup-link">Criar novo usuário</a>
+        </div>
+    </div>
+    <div class="back-link">
+        <a href="{% url 'Artigos:lista' %}">Voltar à página inicial</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Disciplina</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .login-button:hover {
+            background-color: #0056b3;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        input[type="text"], input[type="number"], input[type="email"], textarea, select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            color: #333;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus, textarea:focus, select:focus {
+            border-color: #007bff;
+            background-color: #fff;
+        }
+
+        .submit-button, .register-button, .back-button {
+            display: inline-block;
+            width: 100%;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            padding: 14px 0;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+            box-sizing: border-box;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-button:hover, .register-button:hover, .back-button:hover {
+            background: linear-gradient(135deg, #0056b3, #003f7f);
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            color: #007bff;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #0056b3;
+        }
+
+        .voltar {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .voltar a, input[type="submit"], button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: #fff;
+            border-radius: 25px;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .voltar a:hover, input[type="submit"]:hover, button:hover {
+            background: linear-gradient(135deg, #0056b3, #003f7f);
+        }
+
+        .voltar a span, input[type="submit"] span, button span {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        .volta {
+            text-align: center;
+        }
+
+        .link-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .button-group a {
+            width: 48%;
+        }
+
+        .button-group a + a {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1>Criar Disciplina</h1>
+    </header>
+
+    <div class="container">
+        <form method="POST" class="edit-profile-form">
+            {% csrf_token %}
+            <input type="text" id="nome" name="nome" placeholder="Nome" required>
+            <input type="number" id="ano" name="ano" placeholder="Ano" required>
+            <input type="number" id="semestre" name="semestre" placeholder="Semestre" required>
+            <input type="number" id="ects" name="ects" placeholder="ECTS" required>
+            <input type="number" id="code" name="code" placeholder="Code" required>
+            <select id="area" name="area" required>
+                {% for area in areas %}
+                    <option value="{{ area.id }}">{{ area.nome }}</option>
+                {% endfor %}
+            </select>
+            <div class="button-group">
+                <a href="{% url 'cursoLEI:criar_area_criar' %}" class="back-link">Criar Área Científica</a>
+                <a href="{% url 'cursoLEI:remover_area_pagina' %}" class="back-link">Remover Área Científica</a>
+            </div>
+
+            <select id="docentes" name="docentes" multiple required>
+                {% for docente in docentes %}
+                    <option value="{{ docente.id }}">{{ docente.nome }}</option>
+                {% endfor %}
+            </select>
+
+            <div class="button-group">
+                <a href="{% url 'cursoLEI:lista_docente' %}" class="back-link">Lista de Docentes</a>
+            </div>
+
+            <textarea id="conteudos" name="conteudos" placeholder="Conteúdos Programáticos" required>{{ disciplina.conteudos }}</textarea>
+
+            <div class="volta">
+                <button type="submit">Criar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="voltar">
+        <a href="{% url 'cursoLEI:lista_disciplina' %}">Voltar à lista de disciplinas</a>
+        <a href="{% url 'cursoLEI:lista' %}">Voltar à página inicial</a>
+    </div>
+
+</body>
+</html>

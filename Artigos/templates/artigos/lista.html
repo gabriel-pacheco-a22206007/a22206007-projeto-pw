@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artigos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            position: relative;
+        }
+        .login-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .back-link a {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 25px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .back-link a:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .article {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        .article h2 {
+            margin-top: 0;
+            font-size: 1.75em;
+            color: #007bff;
+        }
+        .article p {
+            margin-top: 5px;
+            line-height: 1.6;
+        }
+        .article-meta {
+            font-size: 0.9em;
+            color: #777;
+        }
+        .link2 {
+            color: #000;
+            text-decoration: none;
+        }
+        .link2:hover {
+            text-decoration: underline;
+        }
+        .action-icons a {
+            color: #777;
+            margin-left: 10px;
+            transition: color 0.3s ease;
+        }
+        .action-icons a:hover {
+            color: #333;
+        }
+        .edit_user {
+            color: #777;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .edit_user :hover{
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Artigos</h1>
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'Artigos:criar_artigo' %}" class="edit_user">
+        <i class="fas fa-plus-circle"></i>
+    </a>
+    {% endif %}
+    <div class="login-container">
+        {% if request.user.is_authenticated %}
+        <div class="back-link">
+            <a href="{% url 'Artigos:perfil' %}">Perfil</a>
+        </div>
+        {% else %}
+        <div class="back-link">
+            <a href="{% url 'Artigos:login' %}">Login</a>
+        </div>
+        {% endif %}
+    </div>
+</header>
+
+<div class="container">
+    {% for artigo in artigos %}
+    <div class="article">
+        <h2><a class="link2" href="{% url 'Artigos:artigos_detalhes' artigo.artigo_id %}">{{ artigo.titulo }}</a></h2>
+        <p>{{ artigo.conteudo }}</p>
+        <div class="article-meta">
+            <p>Autor: <a class="link2" href="{% url 'Artigos:autor' artigo.autor_id.autor_id %}">{{ artigo.autor_id.nome }}</a></p>
+            <p>Data de Publicação: {{ artigo.data_publicacao|date:"d/m/Y H:i:s" }}</p>
+            {% if request.user.is_authenticated %}
+            <div class="action-icons">
+                <a href="{% url 'Artigos:artigo_editar' artigo.artigo_id %}">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{% url 'Artigos:artigo_remover' artigo.artigo_id %}">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Autor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .login-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .login-link {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 25px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .login-link:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .author-info {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        .author-info h2 {
+            margin-top: 0;
+        }
+        .author-info p {
+            margin-top: 5px;
+            line-height: 1.6;
+        }
+        .article-list {
+            margin-top: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        .article-list h3 {
+            margin-top: 0;
+        }
+        .article-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .article-list li {
+            margin-bottom: 10px;
+        }
+        .article-list li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .article-list li a:hover {
+            color: #555;
+        }
+        .back-link {
+            margin: 40px 0;
+            text-align: center;
+        }
+        .back-link a {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 25px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .back-link a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Detalhes do Autor</h1>
+    </header>
+    <div class="container">
+        <div class="author-info">
+            <h2>{{ autor.nome }}</h2>
+            <p><strong>Email:</strong> {{ autor.email }}</p>
+            <p><strong>Bio:</strong> {{ autor.bio }}</p>
+            <p><strong>Data de Cadastro:</strong> {{ autor.data_cadastro|date:"d/m/Y H:i:s" }}</p>
+        </div>
+
+        <div class="article-list">
+            <h3>Artigos Escritos por {{ autor.nome }}:</h3>
+            <ul>
+                {% for artigo in artigos %}
+                    <li><a href="{% url 'Artigos:artigos_detalhes' artigo.artigo_id %}">{{ artigo.titulo }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="back-link">
+            <a href="{% url 'Artigos:lista' %}">Voltar à página inicial</a>
+        </div>
+    </div>
+</body>
+</html>

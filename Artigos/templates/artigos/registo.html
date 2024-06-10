@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+        }
+        .register-container {
+            max-width: 360px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 20px auto;
+        }
+        .register-container h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .back-link {
+            margin: 40px 0;
+            text-align: center;
+        }
+        .back-link a {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 25px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .back-link a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Registro</h1>
+    </header>
+
+    <div class="register-container">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" id="first_name" name="first_name" placeholder="Primeiro Nome" required>
+            <input type="text" id="last_name" name="last_name" placeholder="Último Nome" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="text" id="username" name="username" placeholder="Nome de Usuário" required>
+            <input type="password" id="password" name="password" placeholder="Senha" required>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirmar Senha" required>
+            <button type="submit">Registrar</button>
+        </form>
+    </div>
+    <div class="back-link">
+        <a href="{% url 'Artigos:login' %}">Já possui uma conta? Faça login aqui</a>
+    </div>
+    <div class="back-link">
+        <a href="{% url 'Artigos:lista' %}">Voltar à página inicial</a>
+    </div>
+
+</body>
+</html>

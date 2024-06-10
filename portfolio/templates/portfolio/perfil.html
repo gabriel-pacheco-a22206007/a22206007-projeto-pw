@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            color: #444444;
+            margin: 0;
+            padding-top: 70px;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        header {
+            background: #444444;
+            color: #ffffff;
+            padding: 1rem 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .profile-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            margin-top: 70px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-wrap: break-word;
+        }
+        .profile-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .profile-info label {
+            flex: 0 0 150px;
+            font-weight: bold;
+        }
+        .profile-info p {
+            margin: 0;
+            word-break: break-all; /* Adicionado para quebrar palavras longas */
+        }
+        .extra-links {
+            margin-top: 2rem;
+            text-align: center;
+        }
+        .extra-links form,
+        .extra-links a {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        .extra-links button {
+            background: #d32f2f;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+        }
+        .extra-links button:hover {
+            background: #c62828;
+            transform: scale(1.05);
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .back-link a {
+            color: #d32f2f;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+        .back-link a:hover {
+            color: #b71c1c;
+        }
+        .back-link a::before {
+            content: '←';
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Perfil</h1>
+    </header>
+
+    <div class="profile-container">
+        <div class="profile-info">
+            <label for="first_name">Primeiro Nome:</label>
+            <p>{{ request.user.first_name }}</p>
+        </div>
+        <div class="profile-info">
+            <label for="last_name">Último Nome:</label>
+            <p>{{ request.user.last_name }}</p>
+        </div>
+        <div class="profile-info">
+            <label for="email">Email:</label>
+            <p>{{ request.user.email }}</p>
+        </div>
+        <div class="profile-info">
+            <label for="username">Nome de Usuário:</label>
+            <p>{{ request.user.username }}</p>
+        </div>
+        <div class="extra-links">
+            <form method="POST" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+            <a href="{% url 'portfolio:perfil_editar' %}">
+                <button type="button">Editar Perfil</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="back-link">
+        <a href="{% url 'portfolio:index' %}">Voltar a Portfólio</a>
+    </div>
+</body>
+</html>

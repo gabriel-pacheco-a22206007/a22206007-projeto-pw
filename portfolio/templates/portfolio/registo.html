@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            color: #444444;
+            margin: 0;
+            padding-top: 70px;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        header {
+            background: #444444;
+            color: #ffffff;
+            padding: 1rem 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .register-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 400px;
+            background: #ffffff;
+            padding: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button {
+            background: #d32f2f;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        button:hover {
+            background: #c62828;
+            transform: scale(1.05);
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .back-link a {
+            color: #d32f2f;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+        .back-link a:hover {
+            color: #b71c1c;
+        }
+        .back-link a::before {
+            content: '←';
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Registro</h1>
+    </header>
+    <div class="register-container">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" id="first_name" name="first_name" placeholder="Primeiro Nome" required>
+            <input type="text" id="last_name" name="last_name" placeholder="Último Nome" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="text" id="username" name="username" placeholder="Nome de Usuário" required>
+            <input type="password" id="password" name="password" placeholder="Senha" required>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirmar Senha" required>
+            <button type="submit">Registrar</button>
+        </form>
+    </div>
+    <div class="back-link">
+        <a href="{% url 'portfolio:login' %}">Já possui uma conta? Faça login aqui</a>
+    </div>
+    <div class="back-link">
+        <a href="{% url 'portfolio:index' %}">Voltar a Portfólio</a>
+    </div>
+</body>
+</html>

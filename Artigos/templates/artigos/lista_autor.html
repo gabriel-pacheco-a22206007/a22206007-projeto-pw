@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Autores</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        .header-icons {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+        }
+        .header-icons a {
+            color: #fff;
+            font-size: 1.5em;
+            margin-left: 10px;
+            transition: color 0.3s ease;
+        }
+        .header-icons a:hover {
+            color: #ddd;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .author {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .author h2 {
+            margin-top: 0;
+        }
+        .author p {
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+        .author-meta {
+            font-size: 0.8em;
+            color: #777;
+        }
+        .profile-link {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 25px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .profile-link:hover {
+            background-color: #0056b3;
+        }
+        .back-link {
+            margin: 40px 0;
+            text-align: center;
+        }
+        .back-link a {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 25px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .back-link a:hover {
+            background-color: #0056b3;
+        }
+        .action-icons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .action-icons a {
+            color: #777;
+            margin-left: 10px;
+            transition: color 0.3s ease;
+        }
+        .action-icons a:hover {
+            color: #333;
+        }
+        .edit_user {
+            color: #777;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .edit_user :hover{
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Lista de Autores</h1>
+        <a href="{% url 'Artigos:criar_autor' %}" class="edit_user">
+            <i class="fas fa-plus-circle"></i>
+        </a>
+    </header>
+
+    <div class="container">
+        {% for autor in autores %}
+        <div class="author">
+            <h2>{{ autor.nome }}</h2>
+            <p><strong>Email:</strong> {{ autor.email }}</p>
+            <p><strong>Bio:</strong> {{ autor.bio }}</p>
+            <p class="author-meta"><strong>Data de Cadastro:</strong> {{ autor.data_cadastro|date:"d/m/Y H:i:s" }}</p>
+            <div class="action-icons">
+                <a href="{% url 'Artigos:autor_editar' autor.autor_id %}"><i class="fas fa-edit"></i></a>
+                <a href="{% url 'Artigos:autor_remover' autor.autor_id %}"><i class="fas fa-trash-alt"></i></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="back-link">
+        <a href="{% url 'Artigos:lista' %}">Voltar à página inicial</a>
+    </div>
+</body>
+</html>

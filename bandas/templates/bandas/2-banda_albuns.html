@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Álbuns - {{ banda.nome }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #1f1f1f;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 50px auto;
+            border-radius: 8px;
+            background-color: #333333;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .texto {
+            color: #dddddd;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #555555;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        li:hover {
+            background-color: #777777;
+        }
+
+        a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link {
+            color: #ffffff;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .back-link i {
+            margin-right: 5px;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #e91e63;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 6px;
+            padding: 12px 24px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            border: none;
+        }
+
+        .button:hover {
+            background-color: #c2185b;
+        }
+
+        footer {
+            width: 100%;
+            padding: 20px 0;
+            background-color: #333333;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .banda-foto {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+        @media only screen and (max-width: 600px) {
+            .container {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Álbuns - {{ banda.nome }}</h1>
+    
+        {% if banda.foto %}
+        <img src="{{ banda.foto.url }}" alt="Foto da banda" class="banda-foto">
+        {% else %}
+        <p>Foto não disponível</p>
+        {% endif %}
+    
+        <p class="texto">A banda {{ banda.nome }} com nacionalidade {{ banda.nacionalidade }} foi criada em {{ banda.ano_criacao }}</p>
+        <ul>
+            {% for album in albuns %}
+            <li>
+                <a href="{% url 'bandas:3-album' album.titulo %}">{{ album.titulo }}</a>
+                <a href="{% url 'bandas:album_editar' album.id %}">
+                    <i class="fas fa-edit" style="margin-left: 10px;"></i>
+                </a>
+                <a href="{% url 'bandas:album_remover' album.id %}">
+                    <i class="fas fa-trash-alt" style="margin-left: 10px;"></i>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    
+        <a href="{% url 'bandas:add_album' banda.nome %}">
+            <i class="fas fa-plus-circle"></i>
+        </a>
+        <br>
+        <a class="back-link" href="{% url 'bandas:1-lista' %}"><i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Voltar para Lista de Bandas</a>
+    </div>
+    <footer>
+        <a class="back-link" href="{% url 'bandas:layout' %}"><i class="fas fa-home"></i> Voltar para a Página Inicial</a>
+        <p>&copy; 2024 Gabriel Pacheco - a22206007</p>
+    </footer>
+
+</body>
+
+</html>

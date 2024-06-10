@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praias</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .praia {
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f5f5f5;
+        }
+
+        .praia h2 {
+            margin-top: 0;
+            color: #555;
+        }
+
+        .praia p {
+            margin-bottom: 5px;
+            color: #666;
+        }
+
+        .praia a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .praia a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            border-top: 2px solid #555;
+            border-radius: 0 0 12px 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Praias</h1>
+        {% for regiao, praias in regiao_praias %}
+        <div class="praia">
+            <h2>{{ regiao }}</h2>
+            {% for praia in praias %}
+            <p><strong><a href="{% url 'praias:praia' praia.nome %}" style="color: #333;">{{ praia.nome }}</a></strong></p>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <footer style="background-color: #333; color: #fff; border-top: 2px solid #555; border-radius: 0 0 12px 12px;">
+        <p>2024</p>
+    </footer>
+</body>
+
+</html>

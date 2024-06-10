@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Bandas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #1f1f1f;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #333333;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #555555;
+            color: #ffffff;
+            padding: 14px 20px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+        }
+
+        li:hover {
+            background-color: #777777;
+        }
+
+        footer {
+            width: 100%;
+            padding: 20px;
+            background-color: #333333;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .back-link {
+            color: #ffffff;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .back-link i {
+            margin-right: 5px;
+        }
+
+        a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        @media only screen and (max-width: 600px) {
+            .container {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Lista de Bandas</h1>
+        <ul>
+            {% for banda in bandas %}
+            <li>
+                <a href="{% url 'bandas:2-banda_albuns' banda.nome|slugify %}">
+                    {{ banda.nome }}
+                </a>
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'bandas:banda_editar' banda.nome|slugify %}">
+                    <i class="fas fa-edit" style="margin-left: 10px;"></i>
+                </a>
+                <a href="{% url 'bandas:banda_remover' banda.id %}">
+                    <i class="fas fa-trash-alt" style="margin-left: 10px;"></i>
+                </a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'bandas:add_banda'%}">
+            <i class="fas fa-plus-circle"></i>
+        </a>
+        {% endif %}
+    </div>
+    <footer>
+        <a class="back-link" href="{% url 'bandas:layout' %}"><i class="fas fa-home"></i> Voltar para a Página
+            Inicial</a>
+        <p>&copy; 2024 Gabriel Pacheco - a22206007</p>
+    </footer>
+
+</body>
+
+</html>

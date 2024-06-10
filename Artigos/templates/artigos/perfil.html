@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Usuário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+        }
+        .profile-container {
+            max-width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 20px auto;
+        }
+        .profile-container h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .profile-info {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+        }
+        .profile-info label {
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-right: 10px;
+        }
+        .profile-info p {
+            margin: 0;
+            flex-grow: 1;
+        }
+        .extra-links {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+        .extra-links a,
+        .extra-links input[type="submit"] {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+        .extra-links a:hover,
+        .extra-links input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .back-link {
+            margin: 40px 0;
+            text-align: center;
+        }
+        .back-link a {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 25px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .back-link a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Perfil do Usuário</h1>
+    </header>
+
+    <div class="profile-container">
+        <div class="profile-info">
+            <label for="first_name">Primeiro Nome:</label>
+            <p>{{ request.user.first_name }}</p>
+        </div>
+        <div class="profile-info">
+            <label for="last_name">Último Nome:</label>
+            <p>{{ request.user.last_name }}</p>
+        </div>
+        <div class="profile-info">
+            <label for="email">Email:</label>
+            <p>{{ request.user.email }}</p>
+        </div>
+        <div class="profile-info">
+            <label for="username">Nome de Usuário:</label>
+            <p>{{ request.user.username }}</p>
+        </div>
+        <div class="extra-links">
+            <form method="POST" style="display: inline;">
+                {% csrf_token %}
+                <input type="submit" value="Logout">
+            </form>
+            <a href="{% url 'Artigos:perfil_editar' %}">Editar Perfil</a>
+        </div>
+    </div>
+
+    <div class="back-link">
+        <a href="{% url 'Artigos:lista' %}">Voltar à página inicial</a>
+    </div>
+
+</body>
+</html>

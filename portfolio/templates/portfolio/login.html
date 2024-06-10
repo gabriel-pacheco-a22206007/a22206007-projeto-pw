@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            color: #444444;
+            margin: 0;
+            padding-top: 70px;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        header {
+            background: #444444;
+            color: #ffffff;
+            padding: 1rem 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 400px;
+            background: #ffffff;
+            padding: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button {
+            background: #d32f2f;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        button:hover {
+            background: #c62828;
+            transform: scale(1.05);
+        }
+        .extra-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        .extra-links a {
+            color: #d32f2f;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .extra-links span {
+            color: #888;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .back-link a {
+            color: #d32f2f;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+        .back-link a:hover {
+            color: #b71c1c;
+        }
+        .back-link a::before {
+            content: '←';
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Login</h1>
+    </header>
+    <div class="login-container">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" id="username" name="username" placeholder="Usuário" required>
+            <input type="password" id="password" name="password" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <div class="extra-links">
+            <a href="#" class="recover-link">Esqueceu sua senha?</a>
+            <span>|</span>
+            <a href="{% url 'portfolio:registo' %}" class="signup-link">Criar novo usuário</a>
+        </div>
+    </div>
+    <div class="back-link">
+        <a href="{% url 'portfolio:index' %}">Voltar ao Portfólio</a>
+    </div>
+</body>
+</html>

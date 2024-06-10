@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Música - {{ musica.titulo }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #1f1f1f;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 50px auto;
+            border-radius: 8px;
+            background-color: #333333;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            overflow-y: auto;
+            box-sizing: border-box;
+            min-height: 80vh;
+        }
+
+        footer {
+            width: 100%;
+            padding: 20px 0;
+            background-color: #333333;
+            color: #ffffff;
+            border-top: 2px solid #333333;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            color: #ffffff;
+            font-size: 24px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #555555;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        li:hover {
+            background-color: #777777;
+        }
+
+        a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .album-capa {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #e91e63;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 6px;
+            padding: 14px 20px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .button:hover {
+            background-color: #c2185b;
+        }
+
+        .back-link {
+            color: #ffffff;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        /* Estilos responsivos */
+        @media only screen and (max-width: 600px) {
+            .container {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>{{ musica.titulo }} ({{ musica.ano_lancamento }})</h1>
+
+    {% if musica.album.capa %}
+        <img src="{{ musica.album.capa.url }}" alt="Capa do álbum" class="album-capa">
+    {% else %}
+        <p>Capa não disponível</p>
+    {% endif %}
+
+    <p><i class="fas fa-clock"></i> Duração: {{ musica.duracao }}</p>
+    <p><i class="fas fa-link"></i> Link: <a href="{{ musica.link }}" target="_blank">{{ musica.link }}</a></p>
+    <p><i class="fas fa-music"></i> Letra: {{ musica.letra }}</p>
+
+    <a class="back-link" href="{% url 'bandas:3-album' musica.album.titulo %}"><i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Voltar para álbum "{{ musica.album.titulo }}"</a>
+
+</div>
+
+<footer>
+    <a class="back-link" href="{% url 'bandas:layout' %}"><i class="fas fa-home"></i> Voltar para a Página Inicial</a>
+    <p>&copy; 2024 Gabriel Pacheco - a22206007</p>
+</footer>
+
+</body>
+</html>
